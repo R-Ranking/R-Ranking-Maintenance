@@ -1,0 +1,7 @@
+start_date:2016-02-01
+end_date:2016-02-29
+path_to_save_raw_data:/Users/nus/test/
+path_pyspark:/Users/nus/spark-1.5.2-bin-hadoop2.3/bin/pyspark
+path_to_save_summarized_data:/Users/nus/test_2/
+path_to_save_package_HTML:/Users/nus/packages_HTML/
+path_to_save_map_JS_data:/Users/nus/test_2/
