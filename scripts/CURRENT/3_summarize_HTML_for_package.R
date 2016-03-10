@@ -69,7 +69,7 @@ summarize_HTML_for_package <- function(package_of_interest, data){
                  <head>
                  <meta charset="utf-8">
                  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-                 <title>How ', package_of_interest, ' Behaved in Last Month</title>
+                 <title>How ', package_of_interest, ' Performed in Last Month</title>
                  
                  <link rel="stylesheet" href="/stylesheets/styles.css">
                  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -84,7 +84,7 @@ summarize_HTML_for_package <- function(package_of_interest, data){
                  <h1><a href=\'http://R-Ranking.com\'>R-Ranking</a></h1>
                  <h2>How <u>',
                  package_of_interest,
-                 '</u> Behaved in Last Month</h2>
+                 '</u> Performed in Last Month</h2>
                  </td>
                  </tr>
                  
