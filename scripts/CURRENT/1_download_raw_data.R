@@ -30,5 +30,8 @@ for (i in 1:length(urls)){
 	download.file(urls[i],
 	              destfile = paste(dest_path, "/", all_days[i],".csv.gz", sep=""),
 	              quiet = TRUE)
+  
+  cat(i, "/", length(urls), " files have been downloaded.\n")
+  
 }
 
