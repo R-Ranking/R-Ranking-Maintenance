@@ -1,7 +1,0 @@
-1. (solved) when the main.R starts to run, check if all the folders specified in the configuration file exist. 
-
-2. clean all the folders specified in the configuration file before we put any new files into them.
-
-3. Check the files after the downloading finished. If the # don't match, stop and warn.
-
-4. (SOLVED) In the spark script, print the number of rows of the data loaded

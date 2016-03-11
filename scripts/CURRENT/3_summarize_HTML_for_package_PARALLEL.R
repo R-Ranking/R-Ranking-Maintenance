@@ -3,7 +3,7 @@
 
 
 # INPUT:
-  # data: should be a data.frame containing ALL the downloads of one month (the month of interest) (do pre-extraction to make this data frame only contain the records of this month, so that it's smaller therefore faster)
+  # dat: should be a data.frame containing ALL the downloads of one month (the month of interest) (do pre-extraction to make this data frame only contain the records of this month, so that it's smaller therefore faster)
 
 
 args = commandArgs(trailingOnly=TRUE)
@@ -23,18 +23,13 @@ summarize_package_ranking_data <- read.csv(paste(path_to_save_summarized_data,
                                                  sep=""))
 
 
-summarize_HTML_for_package <- function(package_of_interest, data){
-  
-
-  
-  # "path to save" is which path to save the generated HTML file
-  # NOTE: the format should be like "/home/ubuntu/test/". Do NOT ignore the last slash "/"
+summarize_HTML_for_package <- function(package_of_interest){
   
   
   # Generate # of downloads & Ranking information--------------------------------------
   
   # the country information
-  temp = data[data$package==package_of_interest,]
+  temp = dat[dat$package==package_of_interest,]
   temp_table=table(temp$country)
   temp = data.frame(country = names(temp_table), downloads=as.vector(temp_table))
   total_number_of_download <- sum(temp[,2])
@@ -167,15 +162,18 @@ for(a in data_file_list){
 
 package_list=unique(dat$package)
 
-n_packages <- length(package_list)
 
-for(i in 1:length(package_list)){
-  summarize_HTML_for_package(package_list[i],
-                             dat)
-  if(i %in% round(quantile(1:n_packages, seq(0, 1, 0.05)), 0)){
-    cat("Generating HTML Files. ",
-        names(round(quantile(1:n_packages, seq(0, 1, 0.05)), 0))[which(round(quantile(1:n_packages, seq(0, 1, 0.05)), 0)==i)], 
-        " done (", i, "/", n_packages, ")",
-        ".\n", sep="")
-  }
-}
+# Use parallel algorithm to fasten the procedures of generating HTML files.
+#(It takes quite long time to generate HTML files for almost 9000 packages. Do this in parallel should be able to help)
+library(parallel)
+
+cat("The parallel computing cluster is built to generate HTML files.\n")
+parallelCluster <- parallel::makeCluster(parallel::detectCores())
+clusterExport(cl = parallelCluster,
+              varlist = c("dat",
+                          "summarize_package_ranking_data",
+                          "path_to_save_HTML"))
+parSapply(parallelCluster, package_list, FUN=summarize_HTML_for_package)
+
+stopCluster(parallelCluster)
+cat("The parallel computing cluster is shutted down.\n")

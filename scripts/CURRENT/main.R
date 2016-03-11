@@ -93,7 +93,7 @@ cat("Step-3: Generating HTML file for each package\n")
 cat(as.character(Sys.time()), "\n")
 cat(rep("=", 18), "\n\n")
 
-system(command = paste("Rscript 3_summarize_HTML_for_package.R",
+system(command = paste("Rscript 3_summarize_HTML_for_package_PARALLEL.R",
                        path_to_save_raw_data,
                        path_to_save_package_HTML,
                        path_to_save_summarized_data,
