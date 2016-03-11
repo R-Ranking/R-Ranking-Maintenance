@@ -1,5 +1,5 @@
-start_date:2016-02-01
-end_date:2016-02-29
+start_date:2015-12-01
+end_date:2015-12-31
 path_to_save_raw_data:/Users/nus/test/
 path_pyspark:/Users/nus/spark-1.5.2-bin-hadoop2.3/bin/pyspark
 path_to_save_summarized_data:/Users/nus/test_2/
