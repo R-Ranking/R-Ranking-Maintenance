@@ -4,7 +4,8 @@ rm(list=ls())
 # Load configuration information ------------------------------------------
 
 configuration_info <- scan(file = "configuration",
-                           what = "text")
+                           what = "text",
+                           quiet = TRUE)
 
 start_date <- configuration_info[grep("start_date", configuration_info)]
 start_date <- strsplit(start_date, split = ":")[[1]][2]
@@ -20,6 +21,41 @@ path_to_save_package_HTML <- configuration_info[grep("path_to_save_package_HTML"
 path_to_save_package_HTML <- strsplit(path_to_save_package_HTML, split = ":")[[1]][2]
 path_to_save_map_JS_data <- configuration_info[grep("path_to_save_map_JS_data", configuration_info)]
 path_to_save_map_JS_data <- strsplit(path_to_save_map_JS_data, split = ":")[[1]][2]
+
+
+
+# Check if the paths & files from configuration exist -----------------------------
+# If the path required doesn't exist, give a warning message and stop the program
+
+path_to_check <- c(path_to_save_raw_data, 
+                   path_to_save_summarized_data,
+                   path_to_save_package_HTML,
+                   path_to_save_map_JS_data)
+file_to_check <- c(path_pyspark)
+
+
+num_of_missing_path <- 0
+for(path in path_to_check){
+  if(dir.exists(path) == FALSE){
+    cat("ERROR: The path '", path, "' you configured doesn't exist.\n", sep="")
+    num_of_missing_path <- num_of_missing_path + 1
+  }
+}
+
+num_of_missing_file <- 0
+for(f in file_to_check){
+  if(file.exists(f) == FALSE){
+    cat("ERROR: The file '", f, "' you configured doesn't exist.\n", sep="")
+    num_of_missing_file <- num_of_missing_file + 1
+  }
+}
+
+# if there is any missing path or file, stop the program.
+if(num_of_missing_file + num_of_missing_path >0){
+  stop("\nSome path or file you configured can not be found on your machine.\n
+       Please check the ERROR messages above and configure again.\n\n")
+}
+
 
 
 # Download the raw data ---------------------------------------------------

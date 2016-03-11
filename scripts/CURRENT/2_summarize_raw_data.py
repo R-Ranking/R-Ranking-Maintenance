@@ -16,7 +16,7 @@ sc = SparkContext(appName="R-Ranking")
 
 print("Loading the data------------------------------------")
 raw_content = sc.textFile(data_directory)
-print(str(raw_content.count) + " rows of data loaded.")
+print(str(raw_content.count()) + " rows of data loaded.")
 
 
 print("Cleaning the data---------------------------------")

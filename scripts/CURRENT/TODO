@@ -1,4 +1,4 @@
-1. when the main.R starts to run, check if all the folders specified in the configuration file exist. If not, make the corresponding folders
+1. (solved) when the main.R starts to run, check if all the folders specified in the configuration file exist. 
 
 2. clean all the folders specified in the configuration file before we put any new files into them.
 
