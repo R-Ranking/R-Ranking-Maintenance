@@ -5,6 +5,7 @@ rm(list=ls())
 
 configuration_info <- scan(file = "configuration",
                            what = "text",
+                           sep = "\n",
                            quiet = TRUE)
 
 start_date <- configuration_info[grep("start_date", configuration_info)]
@@ -21,6 +22,8 @@ path_to_save_package_HTML <- configuration_info[grep("path_to_save_package_HTML"
 path_to_save_package_HTML <- strsplit(path_to_save_package_HTML, split = ":")[[1]][2]
 path_to_save_map_JS_data <- configuration_info[grep("path_to_save_map_JS_data", configuration_info)]
 path_to_save_map_JS_data <- strsplit(path_to_save_map_JS_data, split = ":")[[1]][2]
+cores_PARALLEL <- configuration_info[grep("cores_PARALLEL", configuration_info)]
+cores_PARALLEL <- as.integer(strsplit(cores_PARALLEL, split = ":")[[1]][2])
 
 
 
@@ -98,7 +101,8 @@ system(command = paste("Rscript 3_summarize_HTML_for_package_PARALLEL.R",
                        path_to_save_package_HTML,
                        path_to_save_summarized_data,
                        start_date,
-                       end_date))
+                       end_date,
+                       cores_PARALLEL))
 
 # Generate Javascript data file for "View on Map".
 

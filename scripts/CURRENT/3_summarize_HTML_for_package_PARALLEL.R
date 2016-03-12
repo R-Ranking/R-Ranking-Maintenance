@@ -168,7 +168,23 @@ package_list=unique(dat$package)
 library(parallel)
 
 cat("The parallel computing cluster is built to generate HTML files.\n")
-parallelCluster <- parallel::makeCluster(parallel::detectCores())
+
+# User can specify how many cores they want to use for paralllel computing cluster.
+# if user specified 0 in the configuration file, then all cores will be called.
+cores_PARALLEL <- as.integer(args[6])
+
+if(cores_PARALLEL == 0){
+  num_of_cores_to_use <- parallel::detectCores()
+} else {
+  num_of_cores_to_use <- cores_PARALLEL
+}
+
+parallelCluster <- parallel::makeCluster(num_of_cores_to_use)
+cat(num_of_cores_to_use,
+    " cores are called to build the cluster.\n\n",
+    sep="")
+
+
 clusterExport(cl = parallelCluster,
               varlist = c("dat",
                           "summarize_package_ranking_data",

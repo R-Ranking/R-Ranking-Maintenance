@@ -1,7 +1,21 @@
+# specify the period to look into
 start_date:2015-12-01
-end_date:2015-12-02
-path_to_save_raw_data:/Users/nus/test/
-path_pyspark:/Users/nus/spark-1.5.2-bin-hadoop2.3/bin/pyspark
-path_to_save_summarized_data:/Users/nus/test_2/
-path_to_save_package_HTML:/Users/nus/packages_HTML/
-path_to_save_map_JS_data:/Users/nus/test_2/
+end_date:2015-12-03
+
+# path to save the downloaded raw data from RStudio data source
+path_to_save_raw_data:/Users/XD/test/
+
+# the path of the Apache Spark (Python) 
+path_pyspark:/Users/XD/spark-1.6.0-bin-hadoop2.3/bin/pyspark
+
+# where to save the generated ranking data of packages and countries
+path_to_save_summarized_data:/Users/XD/test_2/
+
+# the code will generate HTML file for each package. Where to save these HTML files
+path_to_save_package_HTML:/Users/XD/packages_HTML/
+
+# Generate a JS data file for the country distribution. Where to save it
+path_to_save_map_JS_data:/Users/XD/test_2/
+
+# the number of cores used for parallel computing cluster. If set to be 0, cluster will use as many cores as it can
+cores_PARALLEL:0
