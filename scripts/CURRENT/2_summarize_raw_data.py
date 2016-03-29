@@ -16,7 +16,6 @@ sc = SparkContext(appName="R-Ranking")
 
 print("Loading the data------------------------------------")
 raw_content = sc.textFile(data_directory)
-print(str(raw_content.count()) + " rows of data loaded.")
 
 
 print("Cleaning the data---------------------------------")
@@ -28,6 +27,11 @@ def clean(x):
     return(x)
 content = content.map(clean)
 
+# to persist the "content" object as it will be called for multiple times later
+# This should be able to improve the performance of whole script
+content.persist()
+
+print(str(content.count()) + " rows of data loaded.")
 
 print("Calculating the downloads of the packages-----------")
 package_count = content.map(lambda x: (x[6], 1)).reduceByKey(lambda a,b: a+b)
