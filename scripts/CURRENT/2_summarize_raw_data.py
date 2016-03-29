@@ -27,9 +27,6 @@ def clean(x):
     return(x)
 content = content.map(clean)
 
-# to persist the "content" object as it will be called for multiple times later
-# This should be able to improve the performance of whole script
-content.persist()
 
 print(str(content.count()) + " rows of data loaded.")
 
@@ -37,8 +34,6 @@ print("Calculating the downloads of the packages-----------")
 package_count = content.map(lambda x: (x[6], 1)).reduceByKey(lambda a,b: a+b)
 country_count = content.map(lambda x: (x[8], 1)).reduceByKey(lambda a,b: a+b)
 
-# unpersist the "content" objct to realse the memory
-content.unpersist()
 
 print("Sorting and collecting into Python------------------")
 a_package = package_count.map(lambda x: (x[1], x[0])).sortByKey(0).map(lambda x: (x[1], x[0])).collect()
