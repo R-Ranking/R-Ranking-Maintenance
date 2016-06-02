@@ -1,6 +1,6 @@
 # specify the period to look into
-start_date:2015-12-01
-end_date:2015-12-03
+start_date:2016-05-01
+end_date:2016-05-31
 
 # path to save the downloaded raw data from RStudio data source
 path_to_save_raw_data:/Users/XD/test/
@@ -18,4 +18,4 @@ path_to_save_package_HTML:/Users/XD/packages_HTML/
 path_to_save_map_JS_data:/Users/XD/test_2/
 
 # the number of cores used for parallel computing cluster. If set to be 0, cluster will use as many cores as it can
-cores_PARALLEL:0
+cores_PARALLEL:3

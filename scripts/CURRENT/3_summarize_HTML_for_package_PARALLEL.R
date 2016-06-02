@@ -4,7 +4,7 @@
 
 # INPUT:
   # dat: should be a data.frame containing ALL the downloads of one month (the month of interest) (do pre-extraction to make this data frame only contain the records of this month, so that it's smaller therefore faster)
-
+library(data.table)
 
 args = commandArgs(trailingOnly=TRUE)
 
@@ -16,7 +16,7 @@ period <- paste(args[4],
                 args[5],
                 sep="")
 
-summarize_package_ranking_data <- read.csv(paste(path_to_save_summarized_data,
+summarize_package_ranking_data <- fread(paste(path_to_save_summarized_data,
                                                  "/Package_ranking_",
                                                  period,
                                                  ".csv",
@@ -34,7 +34,7 @@ summarize_HTML_for_package <- function(package_of_interest){
   temp = data.frame(country = names(temp_table), downloads=as.vector(temp_table))
   total_number_of_download <- sum(temp[,2])
   
-  ranking <- min(which(summarize_package_ranking_data$downloads == total_number_of_download))
+  ranking <- min(which(summarize_package_ranking_data$package == package_of_interest))
   
   # generate map JavaScirpt data -----------------------
   header = "var map_data = google.visualization.arrayToDataTable([
@@ -157,7 +157,7 @@ summarize_HTML_for_package <- function(package_of_interest){
 data_file_list <- dir(data_path)
 dat <- NULL
 for(a in data_file_list){
-  dat <- rbind(dat, read.csv(gzfile(paste(data_path, a, sep = ""))))
+  dat <- rbind(dat, fread(gzfile(paste(data_path, a, sep = ""))))
 }
 
 package_list=unique(dat$package)
